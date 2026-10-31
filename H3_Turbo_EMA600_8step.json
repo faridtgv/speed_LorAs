@@ -1,0 +1,750 @@
+{
+ "last_node_id": 15,
+ "last_link_id": 17,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "UNETLoader",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      3
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "UNETLoader"
+   },
+   "widgets_values": [
+    "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+    "default"
+   ]
+  },
+  {
+   "id": 2,
+   "type": "CLIPLoader",
+   "pos": [
+    0,
+    150
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "CLIP",
+     "type": "CLIP",
+     "links": [
+      1
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CLIPLoader"
+   },
+   "widgets_values": [
+    "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+    "minimax",
+    "default"
+   ]
+  },
+  {
+   "id": 3,
+   "type": "VAELoader",
+   "pos": [
+    0,
+    300
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      2,
+      13
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "minimax_h3_video_vae_int8_convrot.safetensors"
+   ],
+   "title": "Video VAE"
+  },
+  {
+   "id": 4,
+   "type": "VAELoader",
+   "pos": [
+    0,
+    420
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      15
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "minimax_h3_audio_vae_fp32.safetensors"
+   ],
+   "title": "Audio VAE"
+  },
+  {
+   "id": 5,
+   "type": "MiniMaxH3ImageToVideo",
+   "pos": [
+    380,
+    150
+   ],
+   "size": [
+    460,
+    420
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "clip",
+     "type": "CLIP",
+     "link": 1
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 2
+    },
+    {
+     "name": "first_frame",
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "name": "last_frame",
+     "type": "IMAGE",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "positive",
+     "type": "CONDITIONING",
+     "links": [
+      6
+     ]
+    },
+    {
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      11
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "MiniMaxH3ImageToVideo"
+   },
+   "widgets_values": [
+    "integrated_multimodal_description: [Shot 1] 2D-animated, cinematic, strictly black and white with no color and no grey gradients, a hand-drawn ink illustration style of solid black silhouettes, rough dry-brush strokes, and scattered ink splatters and specks across a stark white background, combined with realistic body weight, natural walking mechanics, and physically believable dust, cloth, and smoke motion rendered as animated ink particles, framed in an ultra-wide anamorphic aspect ratio. An extreme wide, ground-level shot frames a dirt street in a frontier town, the wooden storefronts drawn as jagged black silhouettes under an empty white sky, with a flat mesa sketched on the horizon. In the extreme foreground, the black silhouette of the poncho-wearing gunslinger's boot and spur fills the left edge of the frame, sharp and huge, while far down the street the tiny silhouette of the bearded gunslinger in a long duster coat and flat-crowned hat steps out and begins walking forward. The focus racks from the foreground boot to the distant figure as the boot lifts and steps out of frame, and the camera holds a static shot while a scribbled ink tumbleweed rolls across the street. [Shot 2] At 00:02.500, the camera cuts to a low-angle tracking shot moving backward in front of the poncho-wearing man, a lean figure in a wide-brimmed hat with a thin cigarillo in his mouth, walking with slow, heavy strides, his black silhouette towering against the white sky while each boot step throws up bursts of black ink specks. [Shot 3] At 00:04.500, the shot cuts to a hip-level over-the-shoulder shot from behind the bearded man, his holstered revolver and the black edge of his coat filling the right foreground in sharp focus, while the poncho-wearing man stops in the blurred middle distance. The focus racks from the holster to the poncho-wearing man as he plants his feet about twenty paces away. [Shot 4] At 00:06.000, the camera cuts to a wide shot of both men facing each other at opposite edges of the frame, the empty street between them, then zooms in with large amplitude at fast speed in a sudden crash zoom onto the poncho-wearing man's face. [Shot 5] At 00:07.000, the shot cuts to an extreme close-up of the poncho-wearing man's eyes filling the entire widescreen frame, drawn as narrow white slits in a black ink face with heavy cross-hatched creases, the camera pushing in with small amplitude at slow speed. [Shot 6] At 00:08.000, the camera cuts to a wide shot of the bearded man and crash zooms in with large amplitude at fast speed onto his face, landing on an extreme close-up of his eyes, white slivers in deep black shadow, a single white bead of sweat sliding down his temple. [Shot 7] At 00:09.000, the shot switches to an extreme close-up of the bearded man's black-silhouetted right hand hovering above the grip of his holstered revolver, fingers flexing slowly. [Shot 8] At 00:09.800, the camera cuts to a medium shot of the poncho-wearing man from waist level; the camera pushes in at slow speed while simultaneously zooming out, so his silhouette stays the same size while the street and storefronts behind him stretch and warp away into the distance, as the black edge of his poncho stirs in the wind. [Shot 9] At 00:11.000, the camera cuts to a wide side-on shot with both men framed at opposite edges, arms at their sides. In one lightning-fast motion, the poncho-wearing man sweeps the poncho aside, raises his revolver at arm's length, and fires; the muzzle flash bursts as a pure white flare ringed by an explosion of black ink splatter that sprays across the frame. The bearded man's arm has only half raised his revolver when his silhouette jolts backward. The camera shakes strongly at fast speed with the shot. [Shot 10] At 00:12.000, the shot changes to a low, ground-level medium shot of the bearded man as the camera rolls counterclockwise with small amplitude at slow speed into a tilted angle; his revolver drops into the dirt in the foreground, he staggers one step, falls to his knees, and collapses face-first toward the camera, a cloud of black ink specks bursting up around him and his hat rolling away. [Shot 11] At 00:13.500, the camera cuts to an extreme close-up of the fallen revolver lying in the dirt in sharp focus, and the focus racks to the poncho-wearing man standing still in the background, a thin wavering ink line of smoke rising from his barrel. The camera pulls out with large amplitude at slow speed and pedestals up, revealing the whole empty street from above as he slowly lowers the revolver back beneath his poncho and the wind carries scattered ink specks across the white frame.\n\noverall_soundscape: A dry, gusting wind whistles through the empty street throughout, rattling loose shutters, creaking a hanging wooden sign, and scraping a tumbleweed across the packed dirt. Heavy boot steps crunch on gravel with faint jingling spurs, coat fabric flaps in the wind, and each crash zoom lands with a sudden rush of wind as a fly buzzes near the men's faces, before everything drops into near silence during the slow warping push on the poncho-wearing man. A single sharp gunshot cracks and echoes off the wooden buildings, followed by a revolver thudding into the dirt, a body hitting the ground with a heavy thump and a scatter of dust, and the wind gradually returning.\n\nnon_diegetic_music: N/A",
+    608,
+    352,
+    243
+   ],
+   "title": "Prompt · 608x352 · 243 frames (~10 s)"
+  },
+  {
+   "id": 6,
+   "type": "LoraLoaderModelOnly",
+   "pos": [
+    380,
+    -170
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 3
+    }
+   ],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      4,
+      5
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoraLoaderModelOnly"
+   },
+   "widgets_values": [
+    "H3\\minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors",
+    1.0
+   ],
+   "title": "Turbo LoRA · v4 step600 EMA pruned @ 1.0",
+   "color": "#5a1a14",
+   "bgcolor": "#7a2a20"
+  },
+  {
+   "id": 7,
+   "type": "BasicScheduler",
+   "pos": [
+    900,
+    -170
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 4
+    }
+   ],
+   "outputs": [
+    {
+     "name": "SIGMAS",
+     "type": "SIGMAS",
+     "links": [
+      10
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BasicScheduler"
+   },
+   "widgets_values": [
+    "beta",
+    8,
+    1.0
+   ],
+   "title": "8 steps · beta"
+  },
+  {
+   "id": 8,
+   "type": "RandomNoise",
+   "pos": [
+    900,
+    40
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "NOISE",
+     "type": "NOISE",
+     "links": [
+      7
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "RandomNoise"
+   },
+   "widgets_values": [
+    252063820580846,
+    "fixed"
+   ]
+  },
+  {
+   "id": 9,
+   "type": "KSamplerSelect",
+   "pos": [
+    900,
+    180
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "SAMPLER",
+     "type": "SAMPLER",
+     "links": [
+      9
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "KSamplerSelect"
+   },
+   "widgets_values": [
+    "euler"
+   ],
+   "title": "euler"
+  },
+  {
+   "id": 10,
+   "type": "BasicGuider",
+   "pos": [
+    900,
+    290
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 5
+    },
+    {
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 6
+    }
+   ],
+   "outputs": [
+    {
+     "name": "GUIDER",
+     "type": "GUIDER",
+     "links": [
+      8
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BasicGuider"
+   },
+   "title": "Guider · Turbo LoRA"
+  },
+  {
+   "id": 11,
+   "type": "SamplerCustomAdvanced",
+   "pos": [
+    1260,
+    40
+   ],
+   "size": [
+    340,
+    160
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "noise",
+     "type": "NOISE",
+     "link": 7
+    },
+    {
+     "name": "guider",
+     "type": "GUIDER",
+     "link": 8
+    },
+    {
+     "name": "sampler",
+     "type": "SAMPLER",
+     "link": 9
+    },
+    {
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 10
+    },
+    {
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 11
+    }
+   ],
+   "outputs": [
+    {
+     "name": "output",
+     "type": "LATENT",
+     "links": [
+      12,
+      14
+     ]
+    },
+    {
+     "name": "denoised_output",
+     "type": "LATENT",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "SamplerCustomAdvanced"
+   },
+   "title": "Turbo · 8 steps",
+   "color": "#5a1a14",
+   "bgcolor": "#7a2a20"
+  },
+  {
+   "id": 12,
+   "type": "VAEDecode",
+   "pos": [
+    1660,
+    40
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "samples",
+     "type": "LATENT",
+     "link": 12
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 13
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      16
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAEDecode"
+   }
+  },
+  {
+   "id": 13,
+   "type": "VAEDecodeAudio",
+   "pos": [
+    1660,
+    160
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "samples",
+     "type": "LATENT",
+     "link": 14
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 15
+    }
+   ],
+   "outputs": [
+    {
+     "name": "AUDIO",
+     "type": "AUDIO",
+     "links": [
+      17
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAEDecodeAudio"
+   }
+  },
+  {
+   "id": 14,
+   "type": "VHS_VideoCombine",
+   "pos": [
+    2000,
+    40
+   ],
+   "size": [
+    420,
+    460
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 16
+    },
+    {
+     "name": "audio",
+     "type": "AUDIO",
+     "link": 17
+    },
+    {
+     "name": "meta_batch",
+     "type": "VHS_BatchManager",
+     "link": null
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "Filenames",
+     "type": "VHS_FILENAMES",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VHS_VideoCombine"
+   },
+   "widgets_values": {
+    "frame_rate": 24,
+    "loop_count": 0,
+    "filename_prefix": "H3_turbo_ema600_8step",
+    "format": "video/h264-mp4",
+    "pix_fmt": "yuv420p",
+    "crf": 19,
+    "save_metadata": true,
+    "trim_to_audio": false,
+    "pingpong": false,
+    "save_output": true
+   }
+  },
+  {
+   "id": 15,
+   "type": "Note",
+   "pos": [
+    0,
+    -560
+   ],
+   "size": [
+    620,
+    400
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "Note"
+   },
+   "widgets_values": [
+    "Turbo LoRA · v4 step600 EMA (pruned) · 8 steps\n\nDOWNLOAD\nFile: minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors\nhttps://huggingface.co/drbaph/MiniMax-H3-Turbo-Lora-ComfyUI\nPut it in ComfyUI/models/loras, then re-select it in the LoRA node (this workflow points at a loras/H3 subfolder).\n\nOriginal Turbo LoRA (larryvrh): https://huggingface.co/larryvrh/MiniMax-H3-Turbo-Lora\nUse the PRUNED ComfyUI file above: it drops the adapters that have nothing to attach to, so it loads cleanly.\n\nSETTINGS\nLoRA strength 1.0 · 8 steps · sampler euler · scheduler beta.\n\nRe-select your own MiniMax H3 model, text encoder and VAEs in the loaders on the left.\n608x352 is the fast test size; raise width/height for finals.\n\nMore fixes (TaoMate quality pass, voice fix): https://github.com/faridtgv/speed_LorAs\nBeyond the Frame"
+   ]
+  }
+ ],
+ "links": [
+  [
+   1,
+   2,
+   0,
+   5,
+   0,
+   "CLIP"
+  ],
+  [
+   2,
+   3,
+   0,
+   5,
+   1,
+   "VAE"
+  ],
+  [
+   3,
+   1,
+   0,
+   6,
+   0,
+   "MODEL"
+  ],
+  [
+   4,
+   6,
+   0,
+   7,
+   0,
+   "MODEL"
+  ],
+  [
+   5,
+   6,
+   0,
+   10,
+   0,
+   "MODEL"
+  ],
+  [
+   6,
+   5,
+   0,
+   10,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   7,
+   8,
+   0,
+   11,
+   0,
+   "NOISE"
+  ],
+  [
+   8,
+   10,
+   0,
+   11,
+   1,
+   "GUIDER"
+  ],
+  [
+   9,
+   9,
+   0,
+   11,
+   2,
+   "SAMPLER"
+  ],
+  [
+   10,
+   7,
+   0,
+   11,
+   3,
+   "SIGMAS"
+  ],
+  [
+   11,
+   5,
+   1,
+   11,
+   4,
+   "LATENT"
+  ],
+  [
+   12,
+   11,
+   0,
+   12,
+   0,
+   "LATENT"
+  ],
+  [
+   13,
+   3,
+   0,
+   12,
+   1,
+   "VAE"
+  ],
+  [
+   14,
+   11,
+   0,
+   13,
+   0,
+   "LATENT"
+  ],
+  [
+   15,
+   4,
+   0,
+   13,
+   1,
+   "VAE"
+  ],
+  [
+   16,
+   12,
+   0,
+   14,
+   0,
+   "IMAGE"
+  ],
+  [
+   17,
+   13,
+   0,
+   14,
+   1,
+   "AUDIO"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {},
+ "version": 0.4
+}
