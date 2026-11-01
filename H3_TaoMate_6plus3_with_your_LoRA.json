@@ -1,0 +1,1071 @@
+{
+ "last_node_id": 21,
+ "last_link_id": 26,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "UNETLoader",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      3
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "UNETLoader"
+   },
+   "widgets_values": [
+    "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+    "default"
+   ]
+  },
+  {
+   "id": 2,
+   "type": "CLIPLoader",
+   "pos": [
+    0,
+    150
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "CLIP",
+     "type": "CLIP",
+     "links": [
+      1
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CLIPLoader"
+   },
+   "widgets_values": [
+    "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+    "minimax",
+    "default"
+   ]
+  },
+  {
+   "id": 3,
+   "type": "VAELoader",
+   "pos": [
+    0,
+    300
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      2,
+      22
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "minimax_h3_video_vae_int8_convrot.safetensors"
+   ],
+   "title": "Video VAE"
+  },
+  {
+   "id": 4,
+   "type": "VAELoader",
+   "pos": [
+    0,
+    420
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      24
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "minimax_h3_audio_vae_fp32.safetensors"
+   ],
+   "title": "Audio VAE"
+  },
+  {
+   "id": 5,
+   "type": "MiniMaxH3ImageToVideo",
+   "pos": [
+    380,
+    150
+   ],
+   "size": [
+    460,
+    420
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "clip",
+     "type": "CLIP",
+     "link": 1
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 2
+    },
+    {
+     "name": "first_frame",
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "name": "last_frame",
+     "type": "IMAGE",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "positive",
+     "type": "CONDITIONING",
+     "links": [
+      8,
+      15
+     ]
+    },
+    {
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      13
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "MiniMaxH3ImageToVideo"
+   },
+   "widgets_values": [
+    "integrated_multimodal_description: [Shot 1] 2D-animated, cinematic, strictly black and white with no color and no grey gradients, a hand-drawn ink illustration style of solid black silhouettes, rough dry-brush strokes, and scattered ink splatters and specks across a stark white background, combined with realistic body weight, natural walking mechanics, and physically believable dust, cloth, and smoke motion rendered as animated ink particles, framed in an ultra-wide anamorphic aspect ratio. An extreme wide, ground-level shot frames a dirt street in a frontier town, the wooden storefronts drawn as jagged black silhouettes under an empty white sky, with a flat mesa sketched on the horizon. In the extreme foreground, the black silhouette of the poncho-wearing gunslinger's boot and spur fills the left edge of the frame, sharp and huge, while far down the street the tiny silhouette of the bearded gunslinger in a long duster coat and flat-crowned hat steps out and begins walking forward. The focus racks from the foreground boot to the distant figure as the boot lifts and steps out of frame, and the camera holds a static shot while a scribbled ink tumbleweed rolls across the street. [Shot 2] At 00:02.500, the camera cuts to a low-angle tracking shot moving backward in front of the poncho-wearing man, a lean figure in a wide-brimmed hat with a thin cigarillo in his mouth, walking with slow, heavy strides, his black silhouette towering against the white sky while each boot step throws up bursts of black ink specks. [Shot 3] At 00:04.500, the shot cuts to a hip-level over-the-shoulder shot from behind the bearded man, his holstered revolver and the black edge of his coat filling the right foreground in sharp focus, while the poncho-wearing man stops in the blurred middle distance. The focus racks from the holster to the poncho-wearing man as he plants his feet about twenty paces away. [Shot 4] At 00:06.000, the camera cuts to a wide shot of both men facing each other at opposite edges of the frame, the empty street between them, then zooms in with large amplitude at fast speed in a sudden crash zoom onto the poncho-wearing man's face. [Shot 5] At 00:07.000, the shot cuts to an extreme close-up of the poncho-wearing man's eyes filling the entire widescreen frame, drawn as narrow white slits in a black ink face with heavy cross-hatched creases, the camera pushing in with small amplitude at slow speed. [Shot 6] At 00:08.000, the camera cuts to a wide shot of the bearded man and crash zooms in with large amplitude at fast speed onto his face, landing on an extreme close-up of his eyes, white slivers in deep black shadow, a single white bead of sweat sliding down his temple. [Shot 7] At 00:09.000, the shot switches to an extreme close-up of the bearded man's black-silhouetted right hand hovering above the grip of his holstered revolver, fingers flexing slowly. [Shot 8] At 00:09.800, the camera cuts to a medium shot of the poncho-wearing man from waist level; the camera pushes in at slow speed while simultaneously zooming out, so his silhouette stays the same size while the street and storefronts behind him stretch and warp away into the distance, as the black edge of his poncho stirs in the wind. [Shot 9] At 00:11.000, the camera cuts to a wide side-on shot with both men framed at opposite edges, arms at their sides. In one lightning-fast motion, the poncho-wearing man sweeps the poncho aside, raises his revolver at arm's length, and fires; the muzzle flash bursts as a pure white flare ringed by an explosion of black ink splatter that sprays across the frame. The bearded man's arm has only half raised his revolver when his silhouette jolts backward. The camera shakes strongly at fast speed with the shot. [Shot 10] At 00:12.000, the shot changes to a low, ground-level medium shot of the bearded man as the camera rolls counterclockwise with small amplitude at slow speed into a tilted angle; his revolver drops into the dirt in the foreground, he staggers one step, falls to his knees, and collapses face-first toward the camera, a cloud of black ink specks bursting up around him and his hat rolling away. [Shot 11] At 00:13.500, the camera cuts to an extreme close-up of the fallen revolver lying in the dirt in sharp focus, and the focus racks to the poncho-wearing man standing still in the background, a thin wavering ink line of smoke rising from his barrel. The camera pulls out with large amplitude at slow speed and pedestals up, revealing the whole empty street from above as he slowly lowers the revolver back beneath his poncho and the wind carries scattered ink specks across the white frame.\n\noverall_soundscape: A dry, gusting wind whistles through the empty street throughout, rattling loose shutters, creaking a hanging wooden sign, and scraping a tumbleweed across the packed dirt. Heavy boot steps crunch on gravel with faint jingling spurs, coat fabric flaps in the wind, and each crash zoom lands with a sudden rush of wind as a fly buzzes near the men's faces, before everything drops into near silence during the slow warping push on the poncho-wearing man. A single sharp gunshot cracks and echoes off the wooden buildings, followed by a revolver thudding into the dirt, a body hitting the ground with a heavy thump and a scatter of dust, and the wind gradually returning.\n\nnon_diegetic_music: N/A",
+    608,
+    352,
+    243
+   ],
+   "title": "Prompt · 608x352 · 243 frames (~10 s)"
+  },
+  {
+   "id": 21,
+   "type": "LoraLoaderModelOnly",
+   "pos": [
+    380,
+    -330
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 3
+    }
+   ],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      4,
+      5,
+      7
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoraLoaderModelOnly"
+   },
+   "widgets_values": [
+    "PUT_YOUR_LORA_HERE.safetensors",
+    1.0
+   ],
+   "title": "YOUR LoRA (e.g. eye detail) · all 9 steps",
+   "color": "#2a2320",
+   "bgcolor": "#3a302b"
+  },
+  {
+   "id": 6,
+   "type": "LoraLoaderModelOnly",
+   "pos": [
+    380,
+    -170
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 4
+    }
+   ],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      14
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoraLoaderModelOnly"
+   },
+   "widgets_values": [
+    "H3\\taomate_h3_3step_comfy.safetensors",
+    0.7
+   ],
+   "title": "TaoMate 3-step LoRA @ 0.7 (steps 7-9 only)",
+   "color": "#5a1a14",
+   "bgcolor": "#7a2a20"
+  },
+  {
+   "id": 7,
+   "type": "BasicScheduler",
+   "pos": [
+    900,
+    -170
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 5
+    }
+   ],
+   "outputs": [
+    {
+     "name": "SIGMAS",
+     "type": "SIGMAS",
+     "links": [
+      6
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BasicScheduler"
+   },
+   "widgets_values": [
+    "simple",
+    9,
+    1.0
+   ],
+   "title": "ONE schedule · 9 total steps"
+  },
+  {
+   "id": 8,
+   "type": "SplitSigmas",
+   "pos": [
+    1260,
+    -170
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 6
+    }
+   ],
+   "outputs": [
+    {
+     "name": "high_sigmas",
+     "type": "SIGMAS",
+     "links": [
+      12
+     ]
+    },
+    {
+     "name": "low_sigmas",
+     "type": "SIGMAS",
+     "links": [
+      19
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "SplitSigmas"
+   },
+   "widgets_values": [
+    6
+   ],
+   "title": "Split after step 6"
+  },
+  {
+   "id": 9,
+   "type": "RandomNoise",
+   "pos": [
+    900,
+    40
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "NOISE",
+     "type": "NOISE",
+     "links": [
+      9
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "RandomNoise"
+   },
+   "widgets_values": [
+    252063820580846,
+    "fixed"
+   ]
+  },
+  {
+   "id": 10,
+   "type": "KSamplerSelect",
+   "pos": [
+    900,
+    180
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "SAMPLER",
+     "type": "SAMPLER",
+     "links": [
+      11
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "KSamplerSelect"
+   },
+   "widgets_values": [
+    "res_multistep"
+   ]
+  },
+  {
+   "id": 11,
+   "type": "BasicGuider",
+   "pos": [
+    900,
+    290
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 7
+    },
+    {
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 8
+    }
+   ],
+   "outputs": [
+    {
+     "name": "GUIDER",
+     "type": "GUIDER",
+     "links": [
+      10
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BasicGuider"
+   },
+   "title": "Guider · your LoRA"
+  },
+  {
+   "id": 12,
+   "type": "SamplerCustomAdvanced",
+   "pos": [
+    1260,
+    40
+   ],
+   "size": [
+    340,
+    160
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "noise",
+     "type": "NOISE",
+     "link": 9
+    },
+    {
+     "name": "guider",
+     "type": "GUIDER",
+     "link": 10
+    },
+    {
+     "name": "sampler",
+     "type": "SAMPLER",
+     "link": 11
+    },
+    {
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 12
+    },
+    {
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 13
+    }
+   ],
+   "outputs": [
+    {
+     "name": "output",
+     "type": "LATENT",
+     "links": [
+      20
+     ]
+    },
+    {
+     "name": "denoised_output",
+     "type": "LATENT",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "SamplerCustomAdvanced"
+   },
+   "title": "PASS 1 · steps 1-6 · your LoRA, no TaoMate (motion)",
+   "color": "#2a2320",
+   "bgcolor": "#3a302b"
+  },
+  {
+   "id": 13,
+   "type": "DisableNoise",
+   "pos": [
+    1260,
+    260
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "NOISE",
+     "type": "NOISE",
+     "links": [
+      16
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "DisableNoise"
+   },
+   "title": "No new noise (continue, don't restart)"
+  },
+  {
+   "id": 14,
+   "type": "KSamplerSelect",
+   "pos": [
+    1260,
+    370
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "SAMPLER",
+     "type": "SAMPLER",
+     "links": [
+      18
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "KSamplerSelect"
+   },
+   "widgets_values": [
+    "euler"
+   ]
+  },
+  {
+   "id": 15,
+   "type": "BasicGuider",
+   "pos": [
+    1260,
+    480
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 15,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 14
+    },
+    {
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 15
+    }
+   ],
+   "outputs": [
+    {
+     "name": "GUIDER",
+     "type": "GUIDER",
+     "links": [
+      17
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BasicGuider"
+   },
+   "title": "Guider · your LoRA + TaoMate"
+  },
+  {
+   "id": 16,
+   "type": "SamplerCustomAdvanced",
+   "pos": [
+    1660,
+    40
+   ],
+   "size": [
+    340,
+    160
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "noise",
+     "type": "NOISE",
+     "link": 16
+    },
+    {
+     "name": "guider",
+     "type": "GUIDER",
+     "link": 17
+    },
+    {
+     "name": "sampler",
+     "type": "SAMPLER",
+     "link": 18
+    },
+    {
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 19
+    },
+    {
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 20
+    }
+   ],
+   "outputs": [
+    {
+     "name": "output",
+     "type": "LATENT",
+     "links": [
+      21,
+      23
+     ]
+    },
+    {
+     "name": "denoised_output",
+     "type": "LATENT",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "SamplerCustomAdvanced"
+   },
+   "title": "PASS 2 · steps 7-9 · your LoRA + TaoMate (detail)",
+   "color": "#5a1a14",
+   "bgcolor": "#7a2a20"
+  },
+  {
+   "id": 17,
+   "type": "VAEDecode",
+   "pos": [
+    2060,
+    40
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "samples",
+     "type": "LATENT",
+     "link": 21
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 22
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      25
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAEDecode"
+   }
+  },
+  {
+   "id": 18,
+   "type": "VAEDecodeAudio",
+   "pos": [
+    2060,
+    160
+   ],
+   "size": [
+    320,
+    110
+   ],
+   "flags": {},
+   "order": 18,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "samples",
+     "type": "LATENT",
+     "link": 23
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 24
+    }
+   ],
+   "outputs": [
+    {
+     "name": "AUDIO",
+     "type": "AUDIO",
+     "links": [
+      26
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAEDecodeAudio"
+   }
+  },
+  {
+   "id": 19,
+   "type": "VHS_VideoCombine",
+   "pos": [
+    2400,
+    40
+   ],
+   "size": [
+    420,
+    460
+   ],
+   "flags": {},
+   "order": 19,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 25
+    },
+    {
+     "name": "audio",
+     "type": "AUDIO",
+     "link": 26
+    },
+    {
+     "name": "meta_batch",
+     "type": "VHS_BatchManager",
+     "link": null
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "Filenames",
+     "type": "VHS_FILENAMES",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VHS_VideoCombine"
+   },
+   "widgets_values": {
+    "frame_rate": 24,
+    "loop_count": 0,
+    "filename_prefix": "H3_taomate_6plus3_mylora",
+    "format": "video/h264-mp4",
+    "pix_fmt": "yuv420p",
+    "crf": 19,
+    "save_metadata": true,
+    "trim_to_audio": false,
+    "pingpong": false,
+    "save_output": true
+   }
+  },
+  {
+   "id": 20,
+   "type": "Note",
+   "pos": [
+    0,
+    -800
+   ],
+   "size": [
+    620,
+    460
+   ],
+   "flags": {},
+   "order": 20,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "Note"
+   },
+   "widgets_values": [
+    "TaoMate refiner · 6 + 3 steps · with your own LoRA\n\nYOUR LoRA: pick it in the 'YOUR LoRA' node (it's a placeholder name until you do). It sits right after the model, so it runs in BOTH passes, all 9 steps. Style, character and detail LoRAs belong here: the early steps decide faces and the overall look, so they need your LoRA from the start.\nUsing more than one? Chain them before TaoMate: UNET -> LoRA A -> LoRA B -> TaoMate.\nDon't want one? Bypass the node (Ctrl+B).\n\n1. One BasicScheduler makes a 9-step schedule; SplitSigmas cuts it after step 6.\n2. PASS 1 runs steps 1-6 with your LoRA but NO TaoMate / speed LoRA: motion, bodies, physics and sound get decided properly.\n3. PASS 2 runs steps 7-9 with your LoRA + TaoMate @ 0.7 and NO new noise, so it continues instead of starting over.\n\nIf TaoMate washes out your LoRA's detail, drop TaoMate to 0.5-0.6 or raise your LoRA a little.\n\nDownloads: TaoMate (ComfyUI version) https://huggingface.co/drbaph/MiniMax-H3-Turbo-Lora-ComfyUI/tree/main/experimental\nRe-select your own model, text encoder, VAEs and TaoMate file in the loaders.\n608x352 is the fast test size; raise width/height for finals.\nMore: https://github.com/faridtgv/speed_LorAs · Beyond the Frame"
+   ]
+  }
+ ],
+ "links": [
+  [
+   1,
+   2,
+   0,
+   5,
+   0,
+   "CLIP"
+  ],
+  [
+   2,
+   3,
+   0,
+   5,
+   1,
+   "VAE"
+  ],
+  [
+   3,
+   1,
+   0,
+   21,
+   0,
+   "MODEL"
+  ],
+  [
+   4,
+   21,
+   0,
+   6,
+   0,
+   "MODEL"
+  ],
+  [
+   5,
+   21,
+   0,
+   7,
+   0,
+   "MODEL"
+  ],
+  [
+   6,
+   7,
+   0,
+   8,
+   0,
+   "SIGMAS"
+  ],
+  [
+   7,
+   21,
+   0,
+   11,
+   0,
+   "MODEL"
+  ],
+  [
+   8,
+   5,
+   0,
+   11,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   9,
+   9,
+   0,
+   12,
+   0,
+   "NOISE"
+  ],
+  [
+   10,
+   11,
+   0,
+   12,
+   1,
+   "GUIDER"
+  ],
+  [
+   11,
+   10,
+   0,
+   12,
+   2,
+   "SAMPLER"
+  ],
+  [
+   12,
+   8,
+   0,
+   12,
+   3,
+   "SIGMAS"
+  ],
+  [
+   13,
+   5,
+   1,
+   12,
+   4,
+   "LATENT"
+  ],
+  [
+   14,
+   6,
+   0,
+   15,
+   0,
+   "MODEL"
+  ],
+  [
+   15,
+   5,
+   0,
+   15,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   16,
+   13,
+   0,
+   16,
+   0,
+   "NOISE"
+  ],
+  [
+   17,
+   15,
+   0,
+   16,
+   1,
+   "GUIDER"
+  ],
+  [
+   18,
+   14,
+   0,
+   16,
+   2,
+   "SAMPLER"
+  ],
+  [
+   19,
+   8,
+   1,
+   16,
+   3,
+   "SIGMAS"
+  ],
+  [
+   20,
+   12,
+   0,
+   16,
+   4,
+   "LATENT"
+  ],
+  [
+   21,
+   16,
+   0,
+   17,
+   0,
+   "LATENT"
+  ],
+  [
+   22,
+   3,
+   0,
+   17,
+   1,
+   "VAE"
+  ],
+  [
+   23,
+   16,
+   0,
+   18,
+   0,
+   "LATENT"
+  ],
+  [
+   24,
+   4,
+   0,
+   18,
+   1,
+   "VAE"
+  ],
+  [
+   25,
+   17,
+   0,
+   19,
+   0,
+   "IMAGE"
+  ],
+  [
+   26,
+   18,
+   0,
+   19,
+   1,
+   "AUDIO"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {},
+ "version": 0.4
+}
